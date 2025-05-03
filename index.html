@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>James's Collision Destruction</title>
+</head>
+<body style="background-color: rgb(0, 0, 0); color: white; font-size: 20px;">
+  <div style="font-size: 23px; color: rgb(255, 34, 0);">
+    James's Collision Destruction:
+  </div>
+  <div style="display: flex; gap: 9px;">Inventory: ( <div id="inv">0</div> / <div>INF</div>)</div>
+  <div style="margin-top: 10px; display: flex;">
+    <div style="display: flex; gap: 9px;">
+      <div id="s0" style="color: rgb(255, 0, 0);">Moms-Bank: 0</div><div style="color: red;">M-B,</div>
+      <div id="s1" style="color: rgb(231, 255, 229);">Dirt: 0</div>g,
+      <div id="s2" style="color: rgb(211, 255, 200);">Stone: 0</div>g,
+      <div id="s3" style="color: rgb(146, 255, 164);">Coal-Ore: 0</div>g,
+      <div id="s4" style="color: rgb(92, 255, 80);">Copper-Ore: 0</div>g,
+      <div id="s5" style="color: rgb(150, 190, 85);">Iron-Ore: 0</div>g,
+      <div id="s6" style="color: rgb(187, 209, 97);">Ruby: 0</div>g,
+      <div id="s7" style="color: rgb(217, 255, 113);">Emerald: 0</div>g,
+      <div id="s8" style="color: rgb(208, 255, 36);">Diamond: 0</div>g
+    </div>
+  </div>
+  
+  <div>
+    <div>
+      Upgrades:
+      <div style="font-size: 17px; margin: 8px; display: flex; gap: 12px; color: yellow;">
+        Harder-Collision: C : <div id="u1c">100</div><div style="color: red;">Mol-Bit</div><div id="u1r">R: 1</div> <div>x Collision's Dmg</div> <button>purchase</button>
+      </div>
+      <div style="font-size: 17px; margin: 8px; display: flex; gap: 12px; color: yellow;">
+        Faster-Collision: C : <div id="u2c">100</div><div style="color: red;">Mol-Bit</div><div id="u2r">R: 1</div> <div>x Collision's Speed</div> <button>purchase</button>
+      </div>
+      <div style="font-size: 17px; margin: 8px; display: flex; gap: 12px; color: yellow;">
+        Stronger-Body: C : <div id="u3c">100</div><div style="color: red;">Mol-Bit</div><div id="u3r">R: 1</div> <div>x James's HP</div> <button>purchase</button>
+      </div>
+      <div style="font-size: 17px; margin: 8px; display: flex; gap: 12px; color: yellow;">
+        More-Charge-Cap: C : <div id="u4c">100</div><div style="color: red;">Mol-Bit</div> <div id="u4r">R: 1</div> <div>x Charge's Cap</div> <button>purchase</button>
+      </div>
+      <div style="font-size: 17px; margin: 8px; display: flex; gap: 12px; color: yellow;">
+        Faster-Revive: C : <div id="u5c">100</div><div style="color: red;">Mol-Bit</div> <div id="u5r">R: 1</div> <div>x Revive-Speed</div> <button>purchase</button>
+      </div>
+      <div style="font-size: 17px; margin: 8px; display: flex; gap: 12px; color: yellow;">
+        Charge-Speed: C : <div id="u6c">100</div><div style="color: red;">Mol-Bit</div> <div id="u6r">R: 1</div> <div>x Charge-Speed</div> <button>purchase</button>
+      </div>
+      <div style="font-size: 17px; margin: 8px; display: flex; gap: 12px; color: yellow;">
+        Better-Ore-Luck: C : <div id="u7c">100</div><div style="color: red;">Mol-Bit</div> <div id="u7r">R: 1</div> <div>x Ore-Luck</div> <button>purchase</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 12px; color: rgb(255, 170, 0);">
+    Charge: ( <div id="charge">0</div>/ <div id="chargecap">5000</div>J ) 
+    <div style="display: flex; gap: 8px;">(<div id="chargeps">0</div> J</div> / s <div>)</div>
+  </div>
+
+  <div class="chargebar" id="chargebar" style="
+    width: 230px;
+    height: 20px;
+    background-color: #333;
+    background-image: linear-gradient(to right, rgb(255, 174, 0), rgb(255, 102, 0));
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    border: 1px solid white;
+    margin: 5px 0;
+  "></div>
+  <div style="
+  width: 230px;
+  height: 12px;
+  background: linear-gradient(to right, #3498db 100%, transparent 0%);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  border: 1px solid #2c3e50;
+  margin-top: 6px;
+  transition: background-size 0.05s linear;" id="cdbar"></div>
+
+
+    <div style="display: flex; gap: 13px; margin-top: 18px;">Depth-Meter: <div id="depth">0</div><div>Meters</div> <div>( Deeper = Better luck and Quantity )</div> <button style="font-size: 19px;" onclick="dmga()">COLLIDE</button></div>
+<div>
+  <button style="font-size: 15px; margin: 12px;" onclick="surface()">Go Back To The Surface (Sell)</button>
+</div>
+<div id="combat-log" style="
+background: rgb(255, 255, 255);
+color: rgb(0, 0, 0);
+font-family: monospace;
+font-size: 18px;
+padding: 2px;
+margin-top: 12px;
+width: 380px;
+height: 160px;
+overflow-y: auto;
+border: 2px solid rgb(255, 0, 0);
+white-space: pre-line;
+">
+<b>RNG Log:</b>
+</div>
+  <button onclick="reset()" style="margin-top: 20px; font-size: 20px;">Reset Stats</button>
+
+  <script>
+    let gs = JSON.parse(localStorage.getItem("gs")) || {
+      s0: 0,
+      s1: 0,
+      s2: 0,
+      s3: 0,
+      s4: 0,
+      s5: 0,
+      s6: 0,
+      s7: 0,
+      s8: 0,
+      q1: 0,
+      cmax: 1000,
+      c: 1,
+      creg: 0.75,
+      depth: 0,
+      atkr: false
+    };
+
+    let rng1;
+
+    let cdv = (3000+(gs.depth*10))
+    let interval = setInterval(depth, cdv);
+
+    let cdv2 = (45+(gs.depth))
+    let interval2 = setInterval(charge, cdv2);
+
+    let cdMax = cdv;
+    let cdLast = Date.now();
+
+    let inv;
+    let cregv = ((gs.creg)*40)
+    // Upgrade stats
+let upgrades = {
+  u1: { cost: 100, level: 1, effect: () => gs.depth += 2 },                  // Harder-Collision: boost depth speed
+  u2: { cost: 100, level: 1, effect: () => cdv -= 100 },                     // Faster-Collision: faster collision cooldown
+  u3: { cost: 100, level: 1, effect: () => gs.hp = (gs.hp || 100) * 1.2 },   // Stronger-Body: more HP
+  u4: { cost: 100, level: 1, effect: () => gs.cmax += 1000 },                // More-Charge-Cap: increase charge cap
+  u5: { cost: 100, level: 1, effect: () => cdv2 -= 5 },                      // Faster-Revive: faster regen
+  u6: { cost: 100, level: 1, effect: () => gs.creg += 0.25 },                // Charge-Speed: increase regen rate
+  u7: { cost: 100, level: 1, effect: () => gs.luck = (gs.luck || 1) * 1.15 } // Better-Ore-Luck: (future use)
+};
+
+// Bind buttons
+document.querySelectorAll("button").forEach((btn, i) => {
+  if (i < 7) { // Only bind first 7 buttons (upgrade buttons)
+    btn.onclick = () => buyUpgrade(`u${i + 1}`);
+  }
+});
+
+function buyUpgrade(key) {
+  const upg = upgrades[key];
+  if (gs.s0 >= upg.cost) {
+    gs.s0 -= upg.cost;
+    upg.level += 1;
+    upg.cost = Math.floor(upg.cost * 1.8);
+    upg.effect();
+
+    // Update UI
+    document.getElementById(`${key}r`).innerText = `R: ${upg.level}`;
+    document.getElementById(`${key}c`).innerText = `${upg.cost}`;
+    logCombat(`Upgrade Purchased: ${key} -> Rank ${upg.level}`);
+  } else {
+    logCombat(`Not enough Mol-Bits for ${key}`);
+  }
+}
+
+
+
+
+    function updui() {
+      inv  = (gs.s1 + gs.s2 + gs.s3 + gs.s4 + gs.s5 + gs.s6 + gs.s7)
+      document.getElementById('inv').innerText = "" + inv.toFixed(1);
+      document.getElementById('depth').innerText = "" + gs.depth.toFixed(1);
+      document.getElementById('s0').innerText = "Moms-Bank: " + gs.s0.toFixed(1);
+      document.getElementById('s1').innerText = "Dirt: " + gs.s1.toFixed(1);
+      document.getElementById('s2').innerText = "Stone: " + gs.s2.toFixed(1);
+      document.getElementById('s3').innerText = "Coal-Ore: " + gs.s3.toFixed(1);
+      document.getElementById('s4').innerText = "Copper-Ore: " + gs.s4.toFixed(1);
+      document.getElementById('s5').innerText = "Iron-Ore: " + gs.s5.toFixed(1);
+      document.getElementById('s6').innerText = "Ruby: " + gs.s6.toFixed(1);
+      document.getElementById('s7').innerText = "Emerald: " + gs.s7.toFixed(1);
+      document.getElementById('s8').innerText = "Diamond: " + gs.s8.toFixed(1);
+      document.getElementById('charge').innerText = gs.c.toFixed(1);
+      document.getElementById('chargecap').innerText = gs.cmax.toFixed(1);
+      document.getElementById('chargeps').innerText = cregv.toFixed(1);
+      document.getElementById('chargebar').style.backgroundSize = (gs.c / gs.cmax * 100) + "% 100%";
+
+      if (gs.atkr) {
+    let now = Date.now();
+    let elapsed = now - cdLast;
+    cdProgress = (elapsed % cdMax) / cdMax * 100;
+    document.getElementById('cdbar').style.backgroundSize = cdProgress + "% 100%";
+} else {
+    document.getElementById('cdbar').style.backgroundSize = "0% 100%";
+}
+    }
+    function SIgroup() {
+      updui();
+      localStorage.setItem('gs', JSON.stringify(gs));
+    }
+    function logCombat(msg) {
+    const log = document.getElementById("combat-log");
+    log.innerHTML += "\n" + msg;
+    log.scrollTop = log.scrollHeight; // auto-scroll to bottom
+}
+
+function charge() {
+  if (gs.c < gs.cmax && gs.c > 0) {
+    gs.c += gs.creg
+  } else if (gs.c < 0){
+    gs.c = 1
+  } else if (gs.c > gs.cmax) {
+    gs.c = gs.cmax
+  }
+}
+function surface() {
+  gs.depth = 0
+  gs.s0 += (gs.s1*2)+(gs.s2 *25)+(gs.s3 *125)+(gs.s4 *850)+(gs.s5 *25000)+(gs.s6 *1000000)+(gs.s7 *999999999999)
+  gs.s1 = 0
+  gs.s2 = 0
+  gs.s3 = 0
+  gs.s4 = 0
+  gs.s5 = 0
+  gs.s6 = 0
+  gs.s7 = 0
+  gs.s8 = 0
+  
+}
+function dmga() {
+  if (gs.atkr == false) {
+    gs.atkr = true
+  } else {
+    gs.atkr = false
+  }
+}
+
+function restarttime() {
+  if (interval) clearInterval(interval);
+  cdv = ((1000 + (gs.depth * 4))-(Math.pow((gs.c), 0.35)));
+  cdMax = cdv;
+  cdLast = Date.now();
+  interval = setInterval(depth, cdv);
+}
+
+function restarttime2() {
+  if (interval2) clearInterval(interval2);
+  interval2 = setInterval(charge, cdv2);
+}
+function rng() {
+  let roll = Math.random() * gs.depth * 200;
+  let item = "Nothing";
+
+  if (roll > 1500) {
+    gs.s7 += 1; item = "??? Ore";
+  } else if (roll > 750) {
+    gs.s6 += 1; item = "Mythril";
+  } else if (roll > 500) {
+    gs.s5 += 1; item = "Gold";
+  } else if (roll > 50) {
+    gs.s4 += 1; item = "Copper";
+  } else if (roll > 10) {
+    gs.s3 += 1; item = "Coal";
+  } else if (roll > 5) {
+    gs.s2 += 1; item = "Stone";
+  } else if (roll > 0) {
+    gs.s1 += 1; item = "Dirt";
+  }
+
+  let logMsg = `(Collision) RNG: ${roll.toFixed(1)} — Found ${item}`;
+  logCombat(logMsg);
+}
+
+
+
+function depth() {
+  if (gs.atkr == true && ((gs.c) > (10*(gs.depth+10)))) {
+    gs.depth += ((0.25)/((gs.depth+10)/10))
+    gs.c -= (10*(gs.depth+10))
+    rng()
+  }
+}
+
+
+    function reset() {
+      localStorage.removeItem("gs");
+      location.reload();
+    }
+
+    window.onload = function () {
+      setInterval(SIgroup, 45); 
+      restarttime();
+      restarttime2();
+    };
+  </script>
+</body>
+</html>
