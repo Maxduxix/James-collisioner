@@ -248,20 +248,20 @@ function restarttime2() {
   interval2 = setInterval(charge, cdv2);
 }
 function rng() {
-  let roll = Math.random() * gs.depth * 200;
+  let roll = Math.random() * gs.depth * 2;
   let item = "Nothing";
 
   if (roll > 1500) {
-    gs.s7 += 1; item = "??? Ore";
+    gs.s7 += 1; item = "Pride Flag";
   } else if (roll > 750) {
-    gs.s6 += 1; item = "Mythril";
-  } else if (roll > 500) {
-    gs.s5 += 1; item = "Gold";
-  } else if (roll > 50) {
-    gs.s4 += 1; item = "Copper";
-  } else if (roll > 10) {
-    gs.s3 += 1; item = "Coal";
-  } else if (roll > 5) {
+    gs.s6 += 1; item = "Emerald";
+  } else if (roll > 125) {
+    gs.s5 += 1; item = "Ruby";
+  } else if (roll > 35) {
+    gs.s4 += 1; item = "Copper-Ore";
+  } else if (roll > 12) {
+    gs.s3 += 1; item = "Coal-Ore";
+  } else if (roll > 3) {
     gs.s2 += 1; item = "Stone";
   } else if (roll > 0) {
     gs.s1 += 1; item = "Dirt";
